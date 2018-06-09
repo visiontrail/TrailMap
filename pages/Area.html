@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>一个区域</title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/leaflet/0.7.7/leaflet.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <!-- 内容容器 -->
+    <div id="map"></div>
+
+    <!-- 适合手机端的地图查看 -->
+    <script src="http://cdn.bootcss.com/leaflet/0.7.7/leaflet.js"></script>
+    <script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+    <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
+    <script src="../src/leaflet-echarts.js"></script>
+    <script src="../js/echarts.source.js"></script>
+
+    <script>
+
+        var map = L.map('map');         // 这个L是什么？
+
+        // 地图图层定义
+        var baseLayers = {
+            "高德地图": L.tileLayer('http://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}', {
+                subdomains: "1234"
+            }),
+            '高德影像': L.layerGroup([L.tileLayer('http://webst0{s}.is.autonavi.com/appmaptile?style=6&x={x}&y={y}&z={z}', {
+                subdomains: "1234"
+            }), L.tileLayer('http://t{s}.tianditu.cn/DataServer?T=cta_w&X={x}&Y={y}&L={z}', {
+                subdomains: "1234"
+            })]),
+            // 默认的地图
+            '默认地图': L.tileLayer('http://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineCommunity/MapServer/tile/{z}/{y}/{x}').addTo(map)
+        };
+
+        L.tileLayer('https://a.tiles.mapbox.com/v3/foursquare.map-0y1jh28j/{z}/{x}/{y}.png', {
+            attribution: 'Map &copy; Pacific Rim Coordination Center (PRCC).  Certain data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+            key: 'BC9A493B41014CAABB98F0471D759707',
+            styleId: 22677
+        });
+
+        // 这个是切换底层地图的变量
+        var layercontrol = L.control.layers(baseLayers, {
+            position: "topleft"
+        }).addTo(map);
+
+        // 设置初始化位置和大小(leaflet)
+        map.setView(L.latLng(37.550339, 104.114129), 5);
+
+        // 在Leaflet当中初始化Echarts
+        var overlay = new L.echartsLayer(map, echarts);
+        var chartsContainer = overlay.getEchartsContainer();
+        var myChart = overlay.initECharts(chartsContainer);
+
+        var dom = document.getElementById("map");
+        var myChart2 = echarts.init(dom);
+        
+        window.onresize = myChart.onresize;
+
+        // 初始化区域大小
+        function renderItem(params, api) 
+        {
+            // 区域数组
+            var coords = [
+                [116.7,39.53],
+                [103.73,50.03],
+                [112.91,27.87],
+                [120.65,28.01],
+                [119.57,39.95]
+            ];
+
+            var points = [];
+
+            for (var i = 0; i < coords.length; i++) {
+                points.push(api.coord(coords[i]));
+            }
+
+            var color = api.visual('color');
+
+            return {
+                type: 'polygon',
+
+                shape: {
+                    points: echarts.graphic.clipPointsByRect(points, {
+                        x: params.coordSys.x,
+                        y: params.coordSys.y,
+                        width: params.coordSys.width,
+                        height: params.coordSys.height
+                    })
+                },
+                
+                style: api.style({
+                    fill: color,
+                    stroke: echarts.color.lift(color)
+                })
+            };
+        }
+
+        // 以下这个是Echarts读的数据
+        var option = {
+            color: ['gold', 'aqua', 'lime'],
+            title: {
+                text: '一个区域',
+                x: 'center',
+                textStyle: {
+                    color: '#101010'
+                }
+            },
+            tooltip: {
+                trigger: 'none',
+                formatter: '{d}',
+                axisPointer: {
+                    type: 'shadow'
+                }
+            },
+            // 以下是虚线的数据
+            series: [
+                {
+                    type: 'custom',
+                    coordinateSystem: 'bmap',
+                    renderItem: renderItem,
+                    itemStyle: {
+                        normal: {
+                            opacity: 0.5
+                        }
+                    },
+                    animation: false,
+                    silent: true,
+                    data: [0],
+                    z: -10
+                }
+            ]
+        };
+
+        myChart.on('click', function (params) {
+            alert("1")
+        });
+
+        //overlay.setOption(option,true);
+
+        // 将option数据填充到ECharts当中
+        overlay.setOption(option, true);
+        //myChart2.setOption(option, true);
+    </script>
+</body>
+
+</html>
