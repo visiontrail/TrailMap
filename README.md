@@ -1,35 +1,27 @@
-# leaflet-echarts
-A plugin for leaflet to load echarts map and make BigData Visualization.
-## 基于leaflet 扩展echarts，使ECharts的地图可以加到leaflet上
+# What's TrailMap
+Fork from https://github.com/wandergis/leaflet-echarts<br/>
+一个可用于地理信息（点、线、区域）标记的开源框架，基于Echarts和leaflet制作
 
-> 根据百度地图echarts的扩展改写，在事件联动这个地方以及echarts的容器与地图容器在拖动和缩放中的适应上耗费了很长时间，为了兼容echarts的map其他类型的数据又下了不少功夫。现在可以算是一个稍微完美的版本了。好的效果请在谷歌浏览器访问。
-
-## [leaflet加载echarts3的版本地址](https://github.com/wandergis/leaflet-echarts3)
-
-## [arcgis加载echarts2的版本地址](https://github.com/wandergis/arcgis-echarts)
-
-## [arcgis加载echarts3的版本地址](https://github.com/wandergis/arcgis-echarts3)
-
-> This is a beta version,so it would have some bugs,visit it by **chrome** will be better.	~~When you want to drag the map,drag on zhe basemap without echarts data.~~	It seems that i have solved this problem.
-
-# [在线访问(Demo)](http://wandergis.github.io/leaflet-echarts)
-# [Online Demo(Not in china?Visit this!)](http://wandergis.github.io/leaflet-echarts/index-en.html) 
+# [在线访问(Demo)]()
 
 # 使用方法（Usage）
 
-1. Confirm you have import `leaflet` first, 引入leaflet的js和css库自然不用说 
-2. Import `eaflet-echarts.js` ,可以通过npm安装，输入`npm install leaflet-echarts` 即可
-3. Import `echarts.source.js` under directory `lib` 引入lib目录下的`echarts.source.js`文件
-4. As you can use this plugin like this,按照下面的方法使用
+1. Confirm you have import `leaflet` first, <br/>引入leaflet的js和css库自然不用说 
+2. Import `eaflet-echarts.js` <br/>可以通过npm安装，输入`npm install leaflet-echarts` 即可
+3. Import `echarts.source.js` under directory `lib` <br/>引入lib目录下的`echarts.source.js`文件
+4. As you can use this plugin like this<br/>按照下面的方法使用
 
 	```
 		var overlay = new L.echartsLayer(map, echarts);
     	var chartsContainer=overlay.getEchartsContainer();
     	var myChart=overlay.initECharts(chartsContainer);
-    	var option={};//这里跟百度echarts的map的option一样,the option is same as echarts map
+		
+		//这里跟百度echarts的map的option一样,the option is same as echarts map
+    	var option={};
     	overlay.setOption(option);
    	 ```
-5. If you don't konw how to use this plugin,hava a look at `/examples/index.html`,如果你不会用，看看examples目录下的`index.html` 
+5. If you don't konw how to use this plugin,hava a look at `/examples/index.html`<br/>
+如果你不会用，看看examples目录下的`index.html` 
 
 # 截图示例
 

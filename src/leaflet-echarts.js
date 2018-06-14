@@ -1,4 +1,5 @@
 (function (root, factory) 
+  
   {
     if (typeof define === 'function' && define.amd) {
       // AMD. Register as an anonymous module.
@@ -13,6 +14,7 @@
       root.L.echartsLayer = factory(L);
     }
   }
+
   (this, function (L) {
     L.EchartsLayer = L.Class.extend({
       includes: [L.Mixin.Events],

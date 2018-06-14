@@ -72,11 +72,11 @@
                     type: 'shadow'
                 }
             },
-            // 以下是虚线的数据
+            // 以下是虚线的数据和坐标数据
             series: [
                 {
                     name: '全国',
-                    type: 'scatter',
+                    type: 'map',
                     roam: true,
                     hoverable: false,
                     mapType: 'none',
@@ -287,9 +287,7 @@
                             { name: '腾冲' }
                         ]
                     }
-
-                },
-
+                }
             ]
         };
         myChart.on('click', function (params) {
