@@ -63,43 +63,21 @@
         window.onresize = myChart.onresize;
 
         // 初始化区域
-        function renderItem(params, api) 
+        var heatData = [];
+
+        for (var j = 0; j < 10; ++j) 
         {
-            // 区域数组
-            var coords = 
-            [
-                [116.7,39.53],
-                [103.73,50.03],
-                [112.91,27.87],
-                [120.65,28.01],
-                [119.57,39.95]
-            ];
-
-            var points = [];
-
-            for (var i = 0; i < coords.length; i++) 
+            var x = 100 + j;
+            var y = 24 + j;
+            var cnt = 5 ;
+            for (var i = 0; i < cnt; ++i) 
             {
-                points.push(api.coord(coords[i]));
+                heatData.push([
+                    x + j,
+                    y + j,
+                    1
+                ]);
             }
-
-            var color = api.visual('color');
-
-            return {
-                type: 'polygon',
-                shape: 
-                {
-                    points: echarts.graphic.clipPointsByRect(points, {
-                        x: params.coordSys.x,
-                        y: params.coordSys.y,
-                        width: params.coordSys.width,
-                        height: params.coordSys.height
-                    })
-                },
-                style: api.style({
-                    fill: color,
-                    stroke: echarts.color.lift(color)
-                })
-            };
         }
 
         // 以下这个是Echarts读的数据
@@ -115,7 +93,7 @@
             },
 
             tooltip: {
-                trigger: 'none',
+                trigger: 'item',
                 formatter: '{d}',
                 axisPointer: {
                     type: 'shadow'
@@ -123,20 +101,27 @@
             },
 
             // 以下要在地图上显示的数据
+            // 在这个leaflet-echarts.js即Echarts2的二次开发版本上，对Echarts3的很多其他功能是不支持的
             series: [
                 {
-                    type: 'custom',
+                    type: 'map',
                     coordinateSystem: 'bmap',
-                    renderItem: renderItem,
+                    roam: true,
+                    hoverable: false,
+                    data:[],
+                    heatmap: {
+                        minAlpha: 0.1,
+                        data: heatData
+                    },
                     itemStyle: {
                         normal: {
-                            opacity: 0.5
+                            borderColor:'rgba(100,149,237,1)',
+                            borderWidth:0.1,
+                            areaStyle: {
+                                color: '#1b1b1b'
+                            }
                         }
-                    },
-                    animation: false,
-                    silent: true,
-                    data: [0],
-                    z: 2
+                    }
                 }
             ]
         };
