@@ -16,11 +16,12 @@
     <!-- leaflet.js是一个强大的JS地图库 -->
     <script src="http://cdn.bootcss.com/leaflet/0.7.7/leaflet.js"></script>
     <script src="http://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+    <!--  -->
     <script src="../src/leaflet-echarts.js"></script>
     <script src="../js/echarts.source.js"></script>
 
     <script>
-        // L是leaflet.js当中定义的地图的显示图层
+        // L是leaflet.js当中定义的地图的显示图层,变量map是leaflet地图
         var map = L.map('map');
         
         // 地图图层定义
@@ -47,94 +48,18 @@
             styleId: 22677
         });
 
-        // 设置切换地图图层的图标
+        // control是设置切换地图图层的控件
         L.control.layers(baseLayers, { position: "topleft" }).addTo(map);
 
         // 设置初始化位置和大小(leaflet)
         map.setView(L.latLng(37.550339, 104.114129), 5);
 
-        var overlay = new L.echartsLayer(map, echarts);              // 在Leaflet当中初始化Echarts
-        var chartsContainer = overlay.getEchartsContainer();
-        var myChart = overlay.initECharts(chartsContainer);
-
-        var dom = document.getElementById("map");
-        var myChart2 = echarts.init(dom);
-        
-        window.onresize = myChart.onresize;
-
-        // 初始化区域
-        var heatData = [];
-
-        for (var j = 0; j < 10; ++j) 
-        {
-            var x = 100 + j;
-            var y = 24 + j;
-            var cnt = 5 ;
-            for (var i = 0; i < cnt; ++i) 
-            {
-                heatData.push([
-                    x + j,
-                    y + j,
-                    1
-                ]);
-            }
-        }
-
-        // 以下这个是Echarts读的数据
-        var option = {
-            color: ['gold', 'aqua', 'lime'],
-
-            title: {
-                text: '一个区域',
-                x: 'center',
-                textStyle: {
-                    color: '#101010'
-                }
-            },
-
-            tooltip: {
-                trigger: 'item',
-                formatter: '{d}',
-                axisPointer: {
-                    type: 'shadow'
-                }
-            },
-
-            // 以下要在地图上显示的数据
-            // 在这个leaflet-echarts.js即Echarts2的二次开发版本上，对Echarts3的很多其他功能是不支持的
-            series: [
-                {
-                    type: 'map',
-                    coordinateSystem: 'bmap',
-                    roam: true,
-                    hoverable: false,
-                    data:[],
-                    heatmap: {
-                        minAlpha: 0.1,
-                        data: heatData
-                    },
-                    itemStyle: {
-                        normal: {
-                            borderColor:'rgba(100,149,237,1)',
-                            borderWidth:0.1,
-                            areaStyle: {
-                                color: '#1b1b1b'
-                            }
-                        }
-                    }
-                }
-            ]
-        };
-
-        myChart.on('click', function (params) {
-            alert("1")
-        });
-
-        //overlay.setOption(option,true);
-
-        // 将option数据填充到ECharts当中
-        overlay.setOption(option, true);
-        //myChart2.setOption(option, true);
+        // 使用Leaflet实现画一个区域
+        var polygon = L.polygon([
+            [37.550339, 104.114129],
+            [38.550339, 103.114129],
+            [39.550339, 101.114129]
+        ]).addTo(map);
 
     </script>
 </body>
