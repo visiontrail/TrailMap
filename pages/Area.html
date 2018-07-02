@@ -60,6 +60,16 @@
             [38.550339, 103.114129],
             [39.550339, 101.114129]
         ]).addTo(map);
+        polygon.bindPopup("一个区域");
+
+        // 一个地图上的点
+        var marker = L.marker([37.550339, 104.114129]).addTo(map);
+
+        // Leaflet中map上的点击事件
+        map.on('click', onMapClick);
+        function onMapClick(e) {
+            L.marker([e.latlng.lat,e.latlng.lng]).addTo(map);
+        }
 
     </script>
 </body>
