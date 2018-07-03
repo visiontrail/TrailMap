@@ -2,14 +2,17 @@
 Fork from https://github.com/wandergis/leaflet-echarts<br/>
 一个可用于地理信息（点、线、区域）标记的开源框架，基于Echarts和leaflet制作
 
-# [在线访问(Demo)]()
 
 # 使用方法（Usage）
 
-1. Confirm you have import `leaflet` first, <br/>引入leaflet的js和css库自然不用说 
-2. Import `eaflet-echarts.js` <br/>可以通过npm安装，输入`npm install leaflet-echarts` 即可
-3. Import `echarts.source.js` under directory `lib` <br/>引入lib目录下的`echarts.source.js`文件
-4. As you can use this plugin like this<br/>按照下面的方法使用
+1. Confirm you have import `leaflet` first, <br/>
+引入leaflet的js和css库自然不用说 
+2. Import `eaflet-echarts.js` <br/>
+可以通过npm安装，输入`npm install leaflet-echarts` 即可
+3. Import `echarts.source.js` under directory `lib` <br/>
+引入lib目录下的`echarts.source.js`文件
+4. As you can use this plugin like this<br/>
+按照下面的方法使用
 
 	```
 		var overlay = new L.echartsLayer(map, echarts);
@@ -23,11 +26,6 @@ Fork from https://github.com/wandergis/leaflet-echarts<br/>
 5. If you don't konw how to use this plugin,hava a look at `/examples/index.html`<br/>
 如果你不会用，看看examples目录下的`index.html` 
 
-# 截图示例
-
-![](https://raw.githubusercontent.com/wandergis/leaflet-echarts/master/examples/demo.gif)
-
-![](https://raw.githubusercontent.com/wandergis/leaflet-echarts/master/examples/demo2.gif)
 
 # 参考
 
