@@ -25,10 +25,13 @@
     <!-- 内容容器 -->
     <div id="map"></div>
 
+    <!-- 弹出视频的模态框 -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content" style="height: 600px; width: 0 auto;">
-                    <iframe src='http://open.iqiyi.com/developer/player_js/coopPlayerIndex.html?vid=77a4ba9809e102a2148796a15c4d964c&tvId=485218900&sign=2c2b428709b613a48425847a62f0dfbc17545dd569d1bfaf09cdad939321e65b&appKey=3955c3425820435e86d0f4cdfe56f5e7&appId=1368&height=100%&width=100%' frameborder='0' width='100%' height='100%' allowfullscreen='true'></iframe>
+            <!-- 这里如何让视频播放器按照屏幕比例，且居中？ -->
+            <div class="modal-content" style="height:700px; width:900px; position:relative; left: -200px;">
+                    <iframe src='http://open.iqiyi.com/developer/player_js/coopPlayerIndex.html?vid=77a4ba9809e102a2148796a15c4d964c&tvId=485218900&sign=2c2b428709b613a48425847a62f0dfbc17545dd569d1bfaf09cdad939321e65b&appKey=3955c3425820435e86d0f4cdfe56f5e7&appId=1368&height=100%&width=100%' 
+                            frameborder='0' width='100%' height='100%' allowfullscreen='true'></iframe>
             </div>
         </div><!-- /.modal -->
     </div>

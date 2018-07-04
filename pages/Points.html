@@ -50,27 +50,11 @@
         L.control.layers(baseLayers, { position: "topleft" }).addTo(map);
 
         // 设置初始化位置和大小(leaflet)
-        map.setView(L.latLng(39.92688,116.32088), 10);
-
-        // 使用Leaflet实现画一个区域
-        var polygon = L.polygon([
-            [37.550339, 104.114129],
-            [38.550339, 103.114129],
-            [39.550339, 101.114129]
-        ]).addTo(map);
-        polygon.bindPopup("一个区域");
+        map.setView(L.latLng(39.92688,116.32088), 8);
 
         // 使用Leaflet在地图上创建一个点
-        var marker = L.marker([37.550339, 104.114129]).addTo(map);
-
-        // Leaflet中map上的点击事件
-        map.on('click', onMapClick);
-
-        function onMapClick(e) {
-            L.marker([e.latlng.lat,e.latlng.lng]).addTo(map);
-            LocationList += e.latlng.lat + ',' + e.latlng.lng;
-            alert(LocationList);
-        }
+        var marker = L.marker([41.26296898650507,115.80448150634764]).addTo(map);
+        marker.bindPopup("冰山梁")
 
     </script>
 </body>
